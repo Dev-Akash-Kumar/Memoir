@@ -1,0 +1,4 @@
+DELETE /api/v1/journal/delete/679a5fd5b28d3aeadaea9b3e 404 50 - 16.688 ms
+GET /api/v1/journal/list 200 55 - 17.553 ms
+POST /api/v1/journal/create 200 225 - 16.467 ms
+DELETE /api/v1/journal/delete/679a6664a0af7cf771efdd1c 200 95 - 4.750 ms
