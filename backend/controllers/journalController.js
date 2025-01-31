@@ -1,4 +1,4 @@
-const Journal = require("../model/journal");
+const Journal = require("../model/Journal");
 const mongoose = require("mongoose");
 
 // list all journal

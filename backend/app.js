@@ -5,7 +5,7 @@ const path = require("path");
 const morgan = require("morgan");
 const connectDB = require("./config/DB");
 const cors = require("cors");
-const journalRouter = require("./routes/journal");
+const journalRouter = require("./routes/journalRoutes");
 
 require("dotenv").config();
 
@@ -15,9 +15,10 @@ const app = express();
 // middleware
 app.use(
   cors({
-    origin: "http://localhost:420",
+    origin: process.env.CORS_ORIGIN,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 app.use(express.json());
