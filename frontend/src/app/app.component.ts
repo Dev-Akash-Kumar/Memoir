@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  standalone: false,
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Memoir';
+  sidebarOpen = false;
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+    console.log('Sidebar is now', this.sidebarOpen ? 'Open' : 'Closed');
+  }
 }

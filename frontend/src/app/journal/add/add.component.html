@@ -1,13 +1,23 @@
-<div *ngIf="showEnablePreviewBtn">
-  <button (click)="enablePreview()">Priview</button>
+<div class="container">
+  <div *ngIf="showEnablePreviewBtn">
+    <button class="view-buttons" (click)="enablePreview()">
+      Enable Preview
+    </button>
+  </div>
+
+  <div *ngIf="showDisablePreviewBtn">
+    <button class="view-buttons" (click)="disablePreview()">
+      Disable Preview
+    </button>
+  </div>
 </div>
 
-<div *ngIf="showDisablePreviewBtn">
-  <button (click)="disablePreview()">No Priview</button>
-</div>
 <form [formGroup]="journalForm" (ngSubmit)="onSubmit()">
   <button type="submit">Submit</button>
-
+  <div class="input-container">
+    <input type="text" formControlName="title" placeholder="Enter Title ..." />
+    <input type="text" formControlName="date" readonly />
+  </div>
   <div class="no-preview-layout">
     <angular-editor
       *ngIf="showNoPreviewEditor"

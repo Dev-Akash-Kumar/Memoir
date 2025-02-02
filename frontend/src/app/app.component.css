@@ -1,0 +1,114 @@
+.app-container {
+  display: flex;
+  height: 100vh; /* Full viewport height for the app container */
+  overflow: hidden; /* Prevent scrolling of the body while the sidebar is open */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: grey;
+  height: 10vh;
+  width: 100%;
+  position: fixed; /* Fix the navbar at the top */
+  top: 0;
+  left: 0;
+  z-index: 2; /* Ensure the navbar stays above the sidebar */
+}
+
+.toggle-btn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 0 20px;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 200px;
+  position: fixed;
+  top: 0; /* Keep the sidebar aligned with the top of the viewport */
+  left: -250px; /* Hidden by default */
+  height: 100vh; /* Full height of the viewport */
+  background-color: #d3d3d3;
+  color: #808080;
+  transition: left 0.3s; /* Smooth transition for the sidebar */
+  padding-top: 50px; /* Add some padding to the sidebar for spacing */
+  border: 1px solid black;
+}
+
+.sidebar.open {
+  left: 0; /* When open, move the sidebar to the left (visible) */
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-links li {
+  margin: 20px 0;
+}
+
+.sidebar-links button {
+  background: #ffffff;
+  border: none;
+  color: #000000;
+  font-size: 16px;
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid black;
+  border-right: none;
+}
+
+.sidebar-links button:hover {
+  background-color: #808080;
+  color: #ffffff;
+}
+
+/* Content area */
+.content {
+  flex-grow: 1;
+  margin-left: 0;
+  padding: 20px;
+  padding-top: 10vh; /* Add padding at the top to prevent content from hiding behind the fixed navbar */
+  transition: margin-left 0.3s;
+  overflow: auto; /* Allows scrolling if content exceeds the height */
+}
+
+.content.sidebar-open {
+  margin-left: 250px; /* Shift content when sidebar is open */
+}
+
+/* Brand name */
+.brand-name {
+  display: flex;
+  align-items: center;
+}
+
+.brand-name h1 {
+  margin: 0;
+  font-size: 2rem;
+  margin-right: 15px;
+  color: #ffffff;
+  font-style: italic;
+}
+
+/* Nav buttons */
+.nav-buttons {
+  display: flex;
+  padding-right: 100px;
+}
+
+.nav-button {
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 50px;
+  border-radius: 10px;
+}

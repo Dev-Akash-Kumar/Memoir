@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Journal } from '../model/journal';
-import { environment } from '../../../../environments/environment';
+import { Journal } from '../models/journal';
 @Injectable({
   providedIn: 'root',
 })
 export class JournalService {
-  private apiURL = environment.apiUrl;
+  private apiURL = 'http://localhost:8080/api/v1';
 
-  // private httpOptions = {
-  //   headers: new HttpHeaders().set('Content-Type', 'application/json'),
-  // };
-
-  readonly addUrl = `${environment.apiUrl}/journal/create`;
-  readonly listUrl = `${environment.apiUrl}/journal/list`;
-  readonly deleteUrl = `${environment.apiUrl}/journal/delete`;
+  readonly addUrl = `${this.apiURL}/journal/create`;
+  readonly listUrl = `${this.apiURL}/journal/list`;
+  readonly deleteUrl = `${this.apiURL}/journal/delete`;
 
   constructor(private http: HttpClient) {}
 

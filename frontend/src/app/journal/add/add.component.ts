@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Journal } from '../model/journal';
+import { Journal } from '../models/journal';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { JournalService } from '../services/journal.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-add',
+  standalone: false,
   templateUrl: './add.component.html',
   styleUrl: './add.component.css',
 })
@@ -18,8 +18,10 @@ export class AddComponent implements OnInit, OnDestroy {
   showEnablePreviewBtn: Boolean = false;
   showDisablePreviewBtn: Boolean = true;
   previewContent: String = ''; // To store the content to be displayed in preview
-  currentDate: Date = new Date(); // To get and set Today's date
-  defaultCategory: String = 'Category';
+  currentDate: Date = new Date();
+  selectedDate: Date | null = null;
+  showCalendar = false;
+
   constructor(private journalService: JournalService, private router: Router) {}
 
   // use this editor config when preview is not enabled
@@ -183,16 +185,17 @@ export class AddComponent implements OnInit, OnDestroy {
 
   // default content for editor
   defaultContent: String = `<P>
-  <H1>New Journal</H1><H2>${this.formatDate(this.currentDate)}</H2><H2>${
-    this.defaultCategory
-  }</H2></P>`;
+  <H1>New Journal</H1><H2>${this.formatDate(this.currentDate)}</H2></P>`;
 
   journalForm: FormGroup = new FormGroup({
-    title: new FormControl(`Title-${this.currentDate}`, Validators.required),
+    title: new FormControl('', Validators.required),
+    date: new FormControl('', Validators.required),
     content: new FormControl(this.defaultContent, Validators.required),
   });
 
   ngOnInit(): void {
+    // set current formatted date in date formcontrol
+    this.journalForm.get('date')?.setValue(this.formatDate(this.currentDate));
     // assign default content of editor to preview content
     this.previewContent = this.journalForm.get('content')?.value;
     // update preview content according to editor content
@@ -263,5 +266,6 @@ export class AddComponent implements OnInit, OnDestroy {
   navigateToList(): void {
     this.router.navigate(['']);
   }
+
   ngOnDestroy(): void {}
 }

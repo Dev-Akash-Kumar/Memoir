@@ -1,3 +1,25 @@
-<div>
+<nav class="navbar">
+  <div class="brand-name">
+    <!-- Button to toggle sidebar -->
+    <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
+    <h1>Memoir</h1>
+  </div>
+  <div class="nav-buttons">
+    <button class="nav-button">Login</button>
+    <button class="nav-button">Sign In</button>
+  </div>
+</nav>
+
+<!-- Sidebar that will be toggled on/off -->
+<div class="sidebar" [class.open]="sidebarOpen">
+  <ul class="sidebar-links">
+    <li><button routerLink="/page1">Page 1</button></li>
+    <li><button routerLink="/page2">Page 2</button></li>
+  </ul>
+</div>
+
+<!-- Main content area -->
+<div class="content" [class.sidebar-open]="sidebarOpen">
   <router-outlet></router-outlet>
+  <!-- This is where your routed pages will appear -->
 </div>

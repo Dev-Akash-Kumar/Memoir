@@ -4,10 +4,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "skipLibCheck": true,
     "types": [
-      "jasmine",
-      "node_modules/@types",
+      "jasmine"
     ]
   },
   "include": [
