@@ -13,11 +13,16 @@
 </div>
 
 <form [formGroup]="journalForm" (ngSubmit)="onSubmit()">
-  <button type="submit">Submit</button>
   <div class="input-container">
-    <input type="text" formControlName="title" placeholder="Enter Title ..." />
-    <input type="text" formControlName="date" readonly />
+    <input
+      type="text"
+      id="one"
+      formControlName="title"
+      placeholder="Enter Title ..."
+    />
+    <input type="text" id="two" formControlName="date" readonly />
   </div>
+
   <div class="no-preview-layout">
     <angular-editor
       *ngIf="showNoPreviewEditor"
@@ -35,10 +40,15 @@
       class="preview-editor"
     ></angular-editor>
 
-    <div
-      *ngIf="showPreviewEditor"
-      class="preview-box"
-      [innerHTML]="previewContent"
-    ></div>
+    <div class="preview-box" *ngIf="showPreviewEditor">
+      <div>
+        <p id="journaTitle">{{ journaTitle }}</p>
+        <p id="journalDate">{{ journalDate }}</p>
+      </div>
+      <div id="content-box" [innerHTML]="previewContent"></div>
+    </div>
+  </div>
+  <div class="fixed-button">
+    <button id="submit-button" type="submit">Submit</button>
   </div>
 </form>

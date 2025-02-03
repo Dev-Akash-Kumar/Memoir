@@ -1,4 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+:root {
+  --ae-gap: 5px;
+  --ae-color:#000000
+  --ae-text-area-border: 1px solid #000000;
+  --ae-text-area-border-radius: 0;
+  --ae-focus-outline-color: #000000 auto 1px;
+  --ae-toolbar-padding: 4px;
+  --ae-toolbar-bg-color: #696969;
+  --ae-toolbar-border-radius: 1px solid #ddd;
+  --ae-button-bg-color: #ffffff;
+  --ae-button-border: 3px solid #ffffff;
+  --ae-button-radius: 5px;
+  --ae-button-hover-bg-color: #d3d3d3d3;
+  --ae-button-active-bg-color: #696969;
+  --ae-button-active-color: #ffffff;
+  --ae-button-active-hover-bg-color: #ffffff;
+  --ae-button-disabled-bg-color: gray;
+  --ae-picker-label-color: #ffffff;
+  --ae-picker-option-bg-color: #d3d3d3;
+  /* --ae-picker-icon-bg-color: #ffffff;
+  --ae-picker-option-active-bg-color: #d3d3d3;
+  --ae-picker-option-focused-bg-color: #696969; */
+}

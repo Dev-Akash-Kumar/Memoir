@@ -1,0 +1,85 @@
+.container {
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 50px;
+  gap: 80px;
+  flex-wrap: wrap;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.card {
+  border: 1px solid black;
+  width: 300px;
+  height: auto;
+  max-height: 400px;
+  padding: 20px 30px;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.title {
+  text-align: center;
+  font-size: 20px;
+}
+
+.date {
+  text-align: center;
+  font-size: 17px;
+}
+
+.content {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+  line-height: 1.6;
+  font-family: "Times New Roman", serif;
+  font-size: 16px;
+  max-width: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+  display: -webkit-box; /* Required for multi-line ellipsis */
+  -webkit-box-orient: vertical; /* Vertical stacking of children */
+  -webkit-line-clamp: 7; /* Number of lines to display before truncating */
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
+  margin-bottom: 10px;
+  transition: max-height 0.3s ease;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  gap: 10px;
+}
+
+.footer button {
+  padding: 10px 20px;
+  border: 1px solid #696969;
+  border-radius: 10px;
+  background-color: #d3d3d3;
+  color: #333;
+  font-size: 16px;
+  font-family: "Arial", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footer button:hover {
+  background-color: #ffffff;
+  border-color: #888;
+  color: #000;
+}
+
+.box-button {
+  border: 1px solid black;
+  padding: 2px;
+  border-radius: 10px;
+}
+
+.box-button:hover {
+  background-color: #d3d3d3;
+}

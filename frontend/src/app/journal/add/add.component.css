@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.no-preview-layout {
+  padding-left: 150px;
+}
+
 .preview-layout {
   display: flex;
   gap: 25px;
@@ -13,11 +17,14 @@
   border: 2px solid gray;
   padding: 20px;
   background-color: #ffffff;
+  color: black;
   border-radius: 10px;
 }
 
 .preview-box {
   border: 2px solid #000000;
+  width: 50%;
+  padding: 50px;
 }
 
 .container {
@@ -33,6 +40,7 @@
   padding: 10px 20px;
   font-size: 18px;
   border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .view-buttons:hover {
@@ -45,23 +53,23 @@
 .input-container {
   display: flex;
   gap: 10px;
-  background-color: #ffffff;
+  background-color: #696969;
   padding: 10px 20px;
   margin-bottom: 20px;
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
-  color: #696969;
+  color: black;
 }
 
 /* Style for the readonly input */
 .input-container input[type="text"] {
-  width: 300px;
+  width: 200px;
   padding: 12px 16px;
   border: 1px solid black;
   border-radius: 4px;
-  background-color: #696969;
-  color: white;
+  background-color: #ffffff;
+  color: black;
   font-size: 17px;
   transition: all 0.3s ease;
 }
@@ -74,4 +82,59 @@
   border: 1px solid black;
   color: black;
   outline: none; /* Removes the default focus outline */
+}
+
+#one {
+  width: 80%;
+}
+
+.fixed-button {
+  position: fixed;
+  right: 50px;
+  bottom: 25px;
+  z-index: 1000;
+  background-color: #696969;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.fixed-button:hover {
+  background-color: #ffffff;
+  transform: scale(1.1); /* Slight scale effect on hover */
+}
+
+#submit-button {
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: black;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#submit-button:hover {
+  background-color: #696969;
+  color: #ffffff;
+}
+
+#journaTitle {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+}
+
+#journalDate {
+  text-align: center;
+}
+
+#content-box {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+  line-height: 1.6;
+  font-family: "Times New Roman", serif;
+  font-size: 16px;
 }

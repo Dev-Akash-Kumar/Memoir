@@ -1,1 +1,18 @@
-<p>list works!</p>
+<div class="container">
+  <div class="card" *ngFor="let journal of data">
+    <div class="header">
+      <p class="title">{{ journal.title }}</p>
+      <p class="date">{{ journal.date }}</p>
+    </div>
+    <div class="content" [innerHTML]="journal.content">
+      {{ journal.content }}
+    </div>
+    <div class="footer">
+      <div class="box-button"><button>View</button></div>
+      <div class="box-button"><button>Edit</button></div>
+      <div class="box-button">
+        <button (click)="deleteJournal(journal._id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

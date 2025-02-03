@@ -29,8 +29,8 @@ const getAllJournal = async (req, res) => {
 // create a journal
 const createJournal = async (req, res) => {
   try {
-    const { title, content } = req.body;
-    if (!title || !content) {
+    const { title, content, date } = req.body;
+    if (!title || !content || !date) {
       return res.status(404).send({
         success: false,
         message: "Missing or Invalid fields",
@@ -39,6 +39,7 @@ const createJournal = async (req, res) => {
     const newData = new Journal({
       title,
       content,
+      date,
     });
     const data = await newData.save();
     if (!data) {
@@ -53,7 +54,7 @@ const createJournal = async (req, res) => {
       data,
     });
   } catch (error) {
-    consol.log(error);
+    console.log(error);
     res.status(500).send({
       success: false,
       message: "Error in create journal API",

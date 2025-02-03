@@ -21,7 +21,8 @@ export class AddComponent implements OnInit, OnDestroy {
   currentDate: Date = new Date();
   selectedDate: Date | null = null;
   showCalendar = false;
-
+  journaTitle: String | null = '';
+  journalDate: Date | null = null;
   constructor(private journalService: JournalService, private router: Router) {}
 
   // use this editor config when preview is not enabled
@@ -35,7 +36,7 @@ export class AddComponent implements OnInit, OnDestroy {
     minWidth: '0',
     translate: 'yes',
     enableToolbar: true,
-    showToolbar: false,
+    showToolbar: true,
     placeholder: 'Enter text here...',
     defaultParagraphSeparator: '',
     defaultFontName: 'Times New Roman',
@@ -46,21 +47,21 @@ export class AddComponent implements OnInit, OnDestroy {
       { class: 'calibri', name: 'Calibri' },
       { class: 'comic-sans-ms', name: 'Comic Sans MS' },
     ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText',
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
+    // customClasses: [
+    //   {
+    //     name: 'quote',
+    //     class: 'quote',
+    //   },
+    //   {
+    //     name: 'redText',
+    //     class: 'redText',
+    //   },
+    //   {
+    //     name: 'titleText',
+    //     class: 'titleText',
+    //     tag: 'h1',
+    //   },
+    // ],
     // uploadUrl: 'v1/image',
     // upload: (file: File) => { ... }
     // uploadWithCredentials: false,
@@ -68,30 +69,30 @@ export class AddComponent implements OnInit, OnDestroy {
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
       [
-        'undo',
-        'redo',
-        'bold',
-        'italic',
-        'underline',
-        'strikeThrough',
-        'subscript',
-        'superscript',
-        'justifyLeft',
-        'justifyCenter',
-        'justifyRight',
-        'justifyFull',
-        'indent',
-        'outdent',
+        // 'undo',
+        // 'redo',
+        // 'bold',
+        // 'italic',
+        // 'underline',
+        // 'strikeThrough',
+        // 'subscript',
+        // 'superscript',
+        // 'justifyLeft',
+        // 'justifyCenter',
+        // 'justifyRight',
+        // 'justifyFull',
+        // 'indent',
+        // 'outdent',
         // 'insertUnorderedList',
-        'insertOrderedList',
-        'heading',
+        // 'insertOrderedList',
+        // 'heading',
         // 'fontName',
       ],
       [
-        'fontSize',
+        //'fontSize',
         // 'textColor',
-        // 'backgroundColor',
-        'customClasses',
+        'backgroundColor',
+        //'customClasses',
         'link',
         'unlink',
         'insertImage',
@@ -114,7 +115,7 @@ export class AddComponent implements OnInit, OnDestroy {
     minWidth: '0',
     translate: 'yes',
     enableToolbar: true,
-    showToolbar: false,
+    showToolbar: true,
     placeholder: 'Enter text here...',
     defaultParagraphSeparator: '',
     defaultFontName: 'Times New Roman',
@@ -148,30 +149,30 @@ export class AddComponent implements OnInit, OnDestroy {
     // toolbarHiddenButtons: [['bold', 'italic']],
     toolbarHiddenButtons: [
       [
-        'undo',
-        'redo',
-        'bold',
-        'italic',
-        'underline',
-        'strikeThrough',
-        'subscript',
-        'superscript',
-        'justifyLeft',
-        'justifyCenter',
-        'justifyRight',
-        'justifyFull',
-        'indent',
-        'outdent',
+        // 'undo',
+        // 'redo',
+        // 'bold',
+        // 'italic',
+        // 'underline',
+        // 'strikeThrough',
+        // 'subscript',
+        // 'superscript',
+        // 'justifyLeft',
+        // 'justifyCenter',
+        // 'justifyRight',
+        // 'justifyFull',
+        // 'indent',
+        // 'outdent',
         // 'insertUnorderedList',
-        'insertOrderedList',
-        'heading',
+        // 'insertOrderedList',
+        // 'heading',
         // 'fontName',
       ],
       [
-        'fontSize',
+        //'fontSize',
         // 'textColor',
-        // 'backgroundColor',
-        'customClasses',
+        'backgroundColor',
+        //'customClasses',
         'link',
         'unlink',
         'insertImage',
@@ -183,21 +184,25 @@ export class AddComponent implements OnInit, OnDestroy {
     ],
   };
 
-  // default content for editor
-  defaultContent: String = `<P>
-  <H1>New Journal</H1><H2>${this.formatDate(this.currentDate)}</H2></P>`;
-
   journalForm: FormGroup = new FormGroup({
     title: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
-    content: new FormControl(this.defaultContent, Validators.required),
+    content: new FormControl('', Validators.required),
   });
 
   ngOnInit(): void {
     // set current formatted date in date formcontrol
     this.journalForm.get('date')?.setValue(this.formatDate(this.currentDate));
+
+    // get title and date from form and assign to get title, date in preview content
+    this.journalForm.get('title')?.valueChanges.subscribe((value: string) => {
+      this.journaTitle = value;
+    });
+    this.journalDate = this.journalForm.get('date')?.value;
+
     // assign default content of editor to preview content
     this.previewContent = this.journalForm.get('content')?.value;
+
     // update preview content according to editor content
     this.journalForm.get('content')?.valueChanges.subscribe((value: string) => {
       this.previewContent = value; // Update the preview content manually
@@ -247,6 +252,7 @@ export class AddComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.journalForm.valid) {
       const data = this.journalForm.value;
+      console.log(data);
       this.journalService.addJournal(data).subscribe(
         (res) => {
           console.log('data submitted');

@@ -6,9 +6,7 @@ import { CommonModule } from '@angular/common';
 import { AddComponent } from './add/add.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [AddComponent, EditComponent, ListComponent],
@@ -17,9 +15,7 @@ import { CalendarModule } from 'primeng/calendar';
     JournalRoutingModule,
     AngularEditorModule,
     ReactiveFormsModule,
-    DatePickerModule,
     FormsModule,
-    CalendarModule,
   ],
 })
 export class JournalModule {}
