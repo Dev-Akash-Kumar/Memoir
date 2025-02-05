@@ -1,17 +1,3 @@
-<div class="container">
-  <div *ngIf="showEnablePreviewBtn">
-    <button class="view-buttons" (click)="enablePreview()">
-      Enable Preview
-    </button>
-  </div>
-
-  <div *ngIf="showDisablePreviewBtn">
-    <button class="view-buttons" (click)="disablePreview()">
-      Disable Preview
-    </button>
-  </div>
-</div>
-
 <form [formGroup]="journalForm" (ngSubmit)="onSubmit()">
   <div class="input-container">
     <input
@@ -20,7 +6,29 @@
       formControlName="title"
       placeholder="Enter Title ..."
     />
-    <input type="text" id="two" formControlName="date" readonly />
+    <p-datepicker
+      class="datepicker"
+      formControlName="date"
+      dateFormat="dd.mm.yy"
+    />
+
+    <div class="container">
+      <div *ngIf="showEnablePreviewBtn">
+        <p-button
+          severity="secondary"
+          (click)="enablePreview()"
+          label="Enable Preview"
+        />
+      </div>
+
+      <div *ngIf="showDisablePreviewBtn">
+        <p-button
+          (click)="disablePreview()"
+          severity="secondary"
+          label="Disable Preview"
+        />
+      </div>
+    </div>
   </div>
 
   <div class="no-preview-layout">
@@ -43,12 +51,14 @@
     <div class="preview-box" *ngIf="showPreviewEditor">
       <div>
         <p id="journaTitle">{{ journaTitle }}</p>
-        <p id="journalDate">{{ journalDate }}</p>
+        <p id="journalDate">{{ formatDate(journalDate) }}</p>
       </div>
       <div id="content-box" [innerHTML]="previewContent"></div>
     </div>
   </div>
-  <div class="fixed-button">
-    <button id="submit-button" type="submit">Submit</button>
+  <div class="card flex justify-center gap-2">
+    <p-toast />
+    <p-confirmdialog />
+    <p-button class="fixed-button" (click)="onSubmit()" label="Save" />
   </div>
 </form>

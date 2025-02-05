@@ -1,1 +1,64 @@
-<p>edit works!</p>
+<form [formGroup]="journalEditForm" (ngSubmit)="onSubmit()">
+  <div class="input-container">
+    <input
+      type="text"
+      id="one"
+      formControlName="title"
+      placeholder="Enter Title ..."
+    />
+    <p-datepicker
+      class="datepicker"
+      formControlName="date"
+      dateFormat="dd.mm.yy"
+    />
+
+    <div class="container">
+      <div *ngIf="showEnablePreviewBtn">
+        <p-button
+          severity="secondary"
+          (click)="enablePreview()"
+          label="Enable Preview"
+        />
+      </div>
+
+      <div *ngIf="showDisablePreviewBtn">
+        <p-button
+          (click)="disablePreview()"
+          severity="secondary"
+          label="Disable Preview"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="no-preview-layout">
+    <angular-editor
+      *ngIf="showNoPreviewEditor"
+      formControlName="content"
+      [config]="noPreview"
+      class="no-preview-editor"
+    ></angular-editor>
+  </div>
+
+  <div class="preview-layout">
+    <angular-editor
+      *ngIf="showPreviewEditor"
+      formControlName="content"
+      [config]="previewEnable"
+      class="preview-editor"
+    ></angular-editor>
+
+    <div class="preview-box" *ngIf="showPreviewEditor">
+      <div>
+        <p id="journaTitle">{{ journaTitle }}</p>
+        <p id="journalDate">{{ formatDate(journalDate) }}</p>
+      </div>
+      <div id="content-box" [innerHTML]="previewContent"></div>
+    </div>
+  </div>
+  <div class="card flex justify-center gap-2">
+    <p-toast />
+    <p-confirmdialog />
+    <p-button class="fixed-button" (click)="onSubmit()" label="Save" />
+  </div>
+</form>

@@ -5,15 +5,15 @@
     <h1>Memoir</h1>
   </div>
   <div class="nav-buttons">
-    <button class="nav-button">Login</button>
-    <button class="nav-button">Sign In</button>
+    <p-button label="Sign In" />
+    <p-button label="Login" />
   </div>
 </nav>
 
 <!-- Sidebar that will be toggled on/off -->
 <div class="sidebar" [class.open]="sidebarOpen">
   <ul class="sidebar-links">
-    <li><button routerLink="">All Journals</button></li>
+    <li><button routerLink="journal/list">All Journals</button></li>
     <li><button routerLink="journal/add">Add Journal</button></li>
   </ul>
 </div>

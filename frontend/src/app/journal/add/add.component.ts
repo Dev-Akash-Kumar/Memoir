@@ -4,26 +4,51 @@ import { Journal } from '../models/journal';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { JournalService } from '../services/journal.service';
 import { Router } from '@angular/router';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { DatePickerModule } from 'primeng/datepicker';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-add',
-  standalone: false,
+  standalone: true,
+  imports: [
+    AngularEditorModule,
+    ReactiveFormsModule,
+    CommonModule,
+    DatePickerModule,
+    ConfirmDialogModule,
+    ToastModule,
+    ButtonModule,
+    ConfirmDialog,
+  ],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './add.component.html',
   styleUrl: './add.component.css',
 })
-export class AddComponent implements OnInit, OnDestroy {
+export class AddComponent {
   Journal: Journal[] = [];
-  content: String = '';
-  showNoPreviewEditor: Boolean = false;
-  showPreviewEditor: Boolean = true;
-  showEnablePreviewBtn: Boolean = false;
-  showDisablePreviewBtn: Boolean = true;
-  previewContent: String = ''; // To store the content to be displayed in preview
+  content: string = '';
+  showNoPreviewEditor: boolean = false;
+  showPreviewEditor: boolean = true;
+  showEnablePreviewBtn: boolean = false;
+  showDisablePreviewBtn: boolean = true;
+  previewContent: string = ''; // To store the content to be displayed in preview
   currentDate: Date = new Date();
   selectedDate: Date | null = null;
   showCalendar = false;
-  journaTitle: String | null = '';
-  journalDate: Date | null = null;
-  constructor(private journalService: JournalService, private router: Router) {}
+  journaTitle: string | null = '';
+  journalDate!: Date;
+  constructor(
+    private journalService: JournalService,
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   // use this editor config when preview is not enabled
   noPreview: AngularEditorConfig = {
@@ -109,7 +134,7 @@ export class AddComponent implements OnInit, OnDestroy {
     editable: true,
     spellcheck: true,
     height: 'auto',
-    minHeight: '80vh',
+    minHeight: '50vh',
     maxHeight: 'auto',
     width: '50vw',
     minWidth: '0',
@@ -186,13 +211,17 @@ export class AddComponent implements OnInit, OnDestroy {
 
   journalForm: FormGroup = new FormGroup({
     title: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required),
+    date: new FormControl(new Date(), Validators.required),
     content: new FormControl('', Validators.required),
   });
 
   ngOnInit(): void {
-    // set current formatted date in date formcontrol
-    this.journalForm.get('date')?.setValue(this.formatDate(this.currentDate));
+    // change value of journalDate according to date in form
+    this.journalForm.get('date')?.valueChanges.subscribe((value: Date) => {
+      this.journalDate = value;
+    });
+
+    this.formatDate(this.journalDate);
 
     // get title and date from form and assign to get title, date in preview content
     this.journalForm.get('title')?.valueChanges.subscribe((value: string) => {
@@ -253,25 +282,69 @@ export class AddComponent implements OnInit, OnDestroy {
     if (this.journalForm.valid) {
       const data = this.journalForm.value;
       console.log(data);
-      this.journalService.addJournal(data).subscribe(
-        (res) => {
-          console.log('data submitted');
-          setTimeout(() => {
-            this.navigateToList();
-          }, 3000);
+      this.confirmationService.confirm({
+        message: 'Are you sure that you want to Save?',
+        header: 'Confirmation',
+        closable: true,
+        closeOnEscape: true,
+        icon: 'pi pi-exclamation-triangle',
+        rejectButtonProps: {
+          label: 'Cancel',
+          severity: 'secondary',
+          outlined: true,
         },
-        (error) => {
-          console.log('error', error);
-        }
-      );
+        acceptButtonProps: {
+          label: 'Save',
+        },
+        accept: () => {
+          this.journalService.addJournal(data).subscribe(
+            (res) => {
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Saved !!',
+                detail: 'Journal saved successfully !!',
+              });
+              this.confirmationService.close();
+
+              setTimeout(() => {
+                this.navigateToList(); // Navigate after 3 seconds
+              }, 3000);
+            },
+            (error) => {
+              console.log('error', error);
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error !!',
+                detail: 'Failed to save journal !!',
+                life: 3000,
+              });
+              this.confirmationService.close();
+            }
+          );
+        },
+        reject: () => {
+          // Show rejection message if the user cancels
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Cancelled !!',
+            detail: 'Failed to save journal !!',
+            life: 3000,
+          });
+          this.confirmationService.close();
+        },
+      });
     } else {
-      console.log('invalid');
+      console.log('Form is invalid');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Missing Title or Content !!',
+        detail: 'Please fill Title and Content correctly !!',
+      });
+      this.confirmationService.close();
     }
   }
 
   navigateToList(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['journal/list']);
   }
-
-  ngOnDestroy(): void {}
 }

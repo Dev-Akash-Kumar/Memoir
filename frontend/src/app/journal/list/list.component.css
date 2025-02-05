@@ -10,7 +10,7 @@
   padding-right: 100px;
 }
 
-.card {
+.card-container {
   border: 1px solid black;
   width: 300px;
   height: auto;
@@ -48,38 +48,8 @@
   transition: max-height 0.3s ease;
 }
 
-.footer {
+.footer-buttons {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0px 10px;
-  gap: 10px;
-}
-
-.footer button {
-  padding: 10px 20px;
-  border: 1px solid #696969;
-  border-radius: 10px;
-  background-color: #d3d3d3;
-  color: #333;
-  font-size: 16px;
-  font-family: "Arial", sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.footer button:hover {
-  background-color: #ffffff;
-  border-color: #888;
-  color: #000;
-}
-
-.box-button {
-  border: 1px solid black;
-  padding: 2px;
-  border-radius: 10px;
-}
-
-.box-button:hover {
-  background-color: #d3d3d3;
+  justify-content: space-between;
 }

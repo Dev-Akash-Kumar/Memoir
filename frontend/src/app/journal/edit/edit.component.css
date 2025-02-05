@@ -1,0 +1,82 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.no-preview-layout {
+  padding-left: 150px;
+}
+
+.preview-layout {
+  display: flex;
+  gap: 25px;
+}
+
+.preview-box {
+  border: 2px solid #000000;
+  width: 50%;
+  padding: 50px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+}
+
+.input-container {
+  display: flex;
+  gap: 10px;
+  background-color: rgb(107, 104, 128);
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  color: black;
+}
+
+.input-container input[type="text"] {
+  padding: 12px 16px;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 17px;
+}
+
+.input-container input[type="text"]:hover,
+.input-container input[type="text"]:focus {
+  outline: none;
+}
+
+#one {
+  width: 70%;
+}
+
+.fixed-button {
+  position: fixed;
+  right: 50px;
+  bottom: 25px;
+  z-index: 1000;
+}
+
+#journaTitle {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+}
+
+#journalDate {
+  text-align: center;
+}
+
+#content-box {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+  line-height: 1.6;
+  font-family: "Times New Roman", serif;
+  font-size: 16px;
+}

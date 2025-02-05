@@ -8,19 +8,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #696969;
+  background-color: #ffffff;
   height: 10vh;
   width: 100%;
   position: fixed; /* Fix the navbar at the top */
   top: 0;
   left: 0;
   z-index: 2; /* Ensure the navbar stays above the sidebar */
+  border: 1px solid black;
 }
 
 .toggle-btn {
   background-color: transparent;
   border: none;
-  color: #ffffff;
+  color: rgb(107, 104, 128);
   font-size: 30px;
   cursor: pointer;
   padding: 0 20px;
@@ -95,7 +96,7 @@
   margin: 0;
   font-size: 2rem;
   margin-right: 15px;
-  color: #ffffff;
+  color: rgb(107, 104, 128);
   font-style: italic;
 }
 
@@ -103,13 +104,5 @@
 .nav-buttons {
   display: flex;
   padding-right: 100px;
-}
-
-.nav-button {
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-right: 50px;
-  border-radius: 10px;
-  font-size: 17px;
+  gap: 100px;
 }

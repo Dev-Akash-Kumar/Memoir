@@ -1,21 +1,29 @@
 import { JournalService } from '../services/journal.service';
 import { Component, OnInit } from '@angular/core';
 import { Journal } from '../models/journal';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-list',
-  standalone: false,
-
+  imports: [CommonModule, ButtonModule, ConfirmDialog, ToastModule],
+  standalone: true,
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
-  providers: [DatePipe],
+  providers: [DatePipe, ConfirmationService, MessageService],
 })
 export class ListComponent implements OnInit {
   data: Journal[] = [];
-
   constructor(
     private journalService: JournalService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,10 +65,61 @@ export class ListComponent implements OnInit {
     });
   }
 
-  deleteJournal(id: String) {
-    this.journalService.deleteJournal(id).subscribe((res: any) => {
-      console.log('deleted', res);
-      this.getAllJournal();
+  deleteJournal(id: string) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Delete?',
+      header: 'Confirmation',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+      },
+      accept: () => {
+        this.journalService.deleteJournal(id).subscribe(
+          (res: any) => {
+            // this.getAllJournal();
+
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Deleted !!',
+              detail: 'Journal deleted successfully !!',
+            });
+            this.confirmationService.close();
+          },
+          (error) => {
+            console.log('error', error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error !!',
+              detail: 'Failed to delete journal !!',
+              life: 3000,
+            });
+            this.confirmationService.close();
+          }
+        );
+      },
+      reject: () => {
+        // If rejected, show rejection message
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Cancelled !!',
+          detail: 'Failed to delete journal !!',
+          life: 3000,
+        });
+        this.confirmationService.close();
+      },
     });
+  }
+
+  viewJournal(id: string) {}
+
+  editJournal(id: string): void {
+    this.route.navigate(['journal', 'edit', id]);
   }
 }

@@ -11,6 +11,7 @@ export class JournalService {
   readonly addUrl = `${this.apiURL}/journal/create`;
   readonly listUrl = `${this.apiURL}/journal/list`;
   readonly deleteUrl = `${this.apiURL}/journal/delete`;
+  readonly getUrl = `${this.apiURL}/journal/getRecord`;
 
   constructor(private http: HttpClient) {}
 
@@ -24,5 +25,9 @@ export class JournalService {
 
   deleteJournal(id: String) {
     return this.http.delete(`${this.deleteUrl}/${id}`);
+  }
+
+  getJournalByID(id: string) {
+    return this.http.get(`${this.getUrl}/${id}`);
   }
 }

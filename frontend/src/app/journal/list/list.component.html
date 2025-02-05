@@ -1,17 +1,19 @@
 <div class="container">
-  <div class="card" *ngFor="let journal of data">
+  <div class="card-container" *ngFor="let journal of data">
     <div class="header">
       <p class="title">{{ journal.title }}</p>
-      <p class="date">{{ journal.date }}</p>
+      <p class="date">{{ formatDate(journal.date) }}</p>
     </div>
     <div class="content" [innerHTML]="journal.content">
       {{ journal.content }}
     </div>
-    <div class="footer">
-      <div class="box-button"><button>View</button></div>
-      <div class="box-button"><button>Edit</button></div>
-      <div class="box-button">
-        <button (click)="deleteJournal(journal._id)">Delete</button>
+    <div class="card flex justify-center gap-2">
+      <p-toast />
+      <p-confirmdialog />
+      <div class="footer-buttons">
+        <p-button label="View" (click)="viewJournal(journal._id)" />
+        <p-button label="Edit" (click)="editJournal(journal._id)" />
+        <p-button label="Delete" (click)="deleteJournal(journal._id)" />
       </div>
     </div>
   </div>
